@@ -1,0 +1,274 @@
+<!-- Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT License. -->
+<!-- This file shows how to design a first-run page that provides a welcome screen to the user about the features of the add-in. -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fill Outer</title>
+
+    <!-- Office JavaScript API -->
+    <!-- <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script> -->
+    <script type="text/javascript" src="office.js"></script>
+
+    <script type="text/javascript" src="datepickerdialog.js"></script>
+    <script src="jQueryAssets/jquery-1.11.1.min.js"></script>
+    <script src="jQueryAssets/jquery.ui-1.10.4.dialog.min.js"></script>
+
+    <!-- For more information on Fluent UI, visit https://developer.microsoft.com/fluentui#/. -->
+    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css"/>
+    <!-- <link rel="stylesheet" href="css/fabric.min.css"/> -->
+
+    <!-- Template styles -->
+    <link href="taskpane.css" rel="stylesheet" type="text/css" />
+    <link href="jQueryAssets/jquery.ui.core.min.css" rel="stylesheet" type="text/css">
+    <link href="jQueryAssets/jquery.ui.theme.min.css" rel="stylesheet" type="text/css">
+    <link href="jQueryAssets/jquery.ui.dialog.min.css" rel="stylesheet" type="text/css">
+    <link href="jQueryAssets/jquery.ui.resizable.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="ms-font-m ms-welcome ms-Fabric">
+    
+    <main id="app-body" class="ms-welcome__main" >
+      <!-- Select Template -->
+      <div id="template" class="template" style="justify-content:space-between; min-width:100%">
+        <div id="menu" type="button" class="menu" aria-label="Menu" style="display:inline; cursor:pointer">
+          <img src="../../assets/menu.png" style="width:18px;height:18px;padding:12;margin:10;cursor:pointer" >
+        </div>
+        <div style="display:inline">
+          <select name="template" title="Select a Template" id="templates" class="templates" style="min-width:60%;position:relative;top:-4px">
+          </select>
+        </div>  
+        <div type="button" id="add-template" class="add-template" aria-label="Add Template" style="display:inline; cursor:pointer">
+          <img src="../../assets/plus.png" style="width:18px;height:18px;padding:12;margin:10;cursor:pointer" >
+        </div>
+        <span></span>
+        <div type="button" id="save-template" class="save-template" aria-label="Save" style="display:inline; cursor:pointer">
+          <img src="../../assets/save.png" style="width:18px;height:18px;padding:12;margin:10;cursor:pointer" >
+        </div>
+      </div>
+
+      <!-- Add car or bike -->
+      <div id="buttons" class="buttons" style="min-width:100%">
+        <button type="button" id="add-car" class="add-car" aria-label="Car" style="min-width:40%;height:22px;cursor:pointer">
+          + Car
+        </button>
+        &nbsp;&nbsp;
+        <button type="button" id="add-motorbike" class="add-motorbike" aria-label="Motorbike" style="min-width:40%;height:22px;cursor:pointer">
+          + Motorbike
+        </button>
+      </div>
+
+      <!-- Section -->
+      <div id="section-01" class="section" style="min-width:100%; justify-content:space-between;">
+        <br>
+        <table style="min-width:100%">
+          <tr>
+            <td>
+              <span class="section-handler" style="min-width:10%; cursor:pointer">
+                <img src="../../assets/section-handler.png" style="width:10px;height:10px;cursor:pointer" >
+              </span>
+            </td>
+            <td>
+              <span class="section-contents" style="min-width:90%; display:inline; cursor:pointer">
+                <!-- Section Controller -->
+                <div id="cars" class="cars" style="justify-content:space-between;min-width:100%">
+                  <button type="button" class="no" aria-label="insertcar" style="position:relative; top:-4px; cursor:pointer">
+                    #1
+                  </button>
+                  <select name="cars" title="Car" id="select-car-01" class="select-car" style="min-width:60%;position:relative;top:-4px">
+                  </select>
+                  <span type="button" id="add-field-01" class="add-field" aria-label="Add Field" style="width:22px;height:22px;cursor:pointer">
+                    <img src="../../assets/plus.png" style="width:18px;height:18px;padding:12;margin:10;cursor:pointer" >
+                  </span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <span type="button" id="close-section-01" class="close-section" aria-label="Close Section" style="cursor:pointer">
+                    <img src="../../assets/close.png" style="width:18px;height:18px;padding:12;margin:10;cursor:pointer" >
+                  </span>
+                </div>
+      
+                <!-- Field Brand-->
+                <div id="field-01" class="field" style="min-width:100%; span:10px">
+                  <!-- Field Name -->
+                  <div id="field-name-01" class="field-name" style="direction:ltr;min-width:100%;margin:4px">
+                    <span id="arrow-left-01" class="arrow-left" aria-label="insertcar" style="cursor:pointer">
+                      <img src="../../assets/arrow-left.png" style="width:18px;height:18px;padding:12;margin:10;cursor:pointer" >
+                    </span>
+                    <!-- <label for="input-field-name-01" style="position:relative;top:-4px">[#1_brand]</label> -->
+                    <input type="text" id="input-field-name-01" class="input-field-name" value="[#1_brand]" name="input-field-name" title="Field Name" style="min-width:60%;position:relative;top:-4px">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span type="button" id="close-field-01" class="close-field" aria-label="Close" style="direction:rtl; cursor:pointer">
+                      <img src="../../assets/close.png" style="width:18px;height:18px;padding:12;margin:10;cursor:pointer" >
+                    </span>
+                  </div>
+                  <!-- Field Value -->
+                  <div id="field-value-01" class="field-value" style="direction:ltr; min-width:100%">
+                    <input type="text" id="input-field-value-01" class="input-field-value" name="field-value-01" title="Field Value" style="min-width:100%;position:relative;top:-4px">
+                  </div>
+                </div>
+
+                <!-- Field Year-->
+                <div id="field-02" class="field" style="min-width:100%; span:10px">
+                  <!-- Field Name -->
+                  <div id="field-name-02" class="field-name" style="direction:ltr;min-width:100%;margin:4px">
+                    <span id="arrow-left-02" class="arrow-left" aria-label="insertcar" style="cursor:pointer">
+                      <img src="../../assets/arrow-left.png" style="width:18px;height:18px;padding:12;margin:10;cursor:pointer" >
+                    </span>
+                    <!-- <label for="input-field-name-01" style="position:relative;top:-4px">[#1_brand]</label> -->
+                    <input type="text" id="input-field-name-02" class="input-field-name" value="[#1_year]" name="input-field-name" title="Field Name" style="min-width:60%;position:relative;top:-4px">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span type="button" id="close-field-02" class="close-field" aria-label="Close" style="direction:rtl; cursor:pointer">
+                      <img src="../../assets/close.png" style="width:18px;height:18px;padding:12;margin:10;cursor:pointer" >
+                    </span>
+                  </div>
+                  <!-- Field Value -->
+                  <div id="field-value-02" class="field-value" style="direction:ltr; min-width:100%">
+                    <input type="text" id="input-field-value-02" class="input-field-value" name="field-value-02" title="Field Value" style="min-width:100%;position:relative;top:-4px">
+                  </div>
+                </div>
+                
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div id="invisible" style="direction:ltr;min-width:100%">
+          <p></p>
+          <label for="texts" style="direction:ltr">Select generic text</label>
+          <select name="text" id="texts" style="min-width:90%">
+          </select>
+          <p></p>
+          <!-- calender_show -->
+          <div id="myDatepicker" class="datepicker">
+
+              <div class="date" style="white-space:nowrap">
+                <div class="group" style="white-space:nowrap">
+                  Loss Date:
+                  <span class="desc" id="id-description-1" style="vertical-align:text-bottom"></span>
+                  <button type="button" class="icon" aria-label="Choose Date">
+                      <img src="../../assets/calender_icon.png" alt="Italian Trulli" style="width:24px;height:24px;cursor:pointer" >
+                      <span class="fa fa-calendar-alt fa-2x"></span>
+                  </button>
+                  <input type="text" placeholder="dd-Mon-yyyy" id="id-textbox-1" aria-describedby="id-description-1" style="border:0px" />
+                </div>
+              </div>
+            
+              <div id="id-datepicker-1" class="datepicker-dialog" role="dialog" aria-modal="true" aria-label="Choose Date">
+            
+                <div class="header">
+            
+                  <button type="button" class="prev-year" aria-label="previous year">
+                    <span class="fas fa-angle-double-left fa-lg"><<</span>
+                  </button>
+            
+                  <button type="button" class="prev-month" aria-label="previous month">
+                    <span class="fas fa-angle-left fa-lg"><</span>
+                  </button>
+            
+                  <h2 id="id-grid-label" class="month-year" aria-live="polite">
+                    February 2020
+                  </h2>
+            
+                  <button type="button" class="next-month" aria-label="next month">
+                    <span class="fas fa-angle-right fa-lg">></span>
+                  </button>
+            
+                  <button type="button" class="next-year" aria-label="next year">
+                    <span class="fas fa-angle-double-right fa-lg">>></span>
+                  </button>
+                </div>
+            
+                <table class="dates" role="grid" aria-labelledby="id-grid-label">
+                  <thead>
+                    <tr>
+                      <th scope="col" abbr="Sunday">S</th>
+                      <th scope="col" abbr="Monday">M</th>
+                      <th scope="col" abbr="Tuesday">T</th>
+                      <th scope="col" abbr="Wednesday">W</th>
+                      <th scope="col" abbr="Thursday">T</th>
+                      <th scope="col" abbr="Friday">F</th>
+                      <th scope="col" abbr="Saturday">S</th>
+                    </tr>
+                  </thead>
+            
+                  <tbody>
+                    <tr>
+                      <td class="disabled" tabindex="-1"></td>
+                      <td class="disabled" tabindex="-1"></td>
+                      <td class="disabled" tabindex="-1"></td>
+                      <td class="disabled" tabindex="-1"></td>
+                      <td class="disabled" tabindex="-1"></td>
+                      <td class="disabled" tabindex="-1"></td>
+                      <td tabindex="-1" data-date="2020-02-01">1</td>
+                    </tr>
+                    <tr>
+                      <td tabindex="-1" data-date="2020-02-02">2</td>
+                      <td tabindex="-1" data-date="2020-02-03">3</td>
+                      <td tabindex="-1" data-date="2020-02-04">4</td>
+                      <td tabindex="-1" data-date="2020-02-05">5</td>
+                      <td tabindex="-1" data-date="2020-02-06">6</td>
+                      <td tabindex="-1" data-date="2020-02-07">7</td>
+                      <td tabindex="-1" data-date="2020-02-08">8</td>
+                    </tr>
+                    <tr>
+                      <td tabindex="-1" data-date="2020-02-09">9</td>
+                      <td tabindex="-1" data-date="2020-02-10">10</td>
+                      <td tabindex="-1" data-date="2020-02-11">11</td>
+                      <td tabindex="-1" data-date="2020-02-12">12</td>
+                      <td tabindex="-1" data-date="2020-02-13">13</td>
+                      <td tabindex="0" data-date="2020-02-14">14</td>
+                      <td tabindex="-1" data-date="2020-02-15">15</td>
+                    </tr>
+                    <tr>
+                      <td tabindex="-1" data-date="2020-02-16">16</td>
+                      <td tabindex="-1" data-date="2020-02-17">17</td>
+                      <td tabindex="-1" data-date="2020-02-18">18</td>
+                      <td tabindex="-1" data-date="2020-02-19">19</td>
+                      <td tabindex="-1" data-date="2020-02-20">20</td>
+                      <td tabindex="-1" data-date="2020-02-21">21</td>
+                      <td tabindex="-1" data-date="2020-02-22">22</td>
+                    </tr>
+                    <tr>
+                      <td tabindex="-1" data-date="2020-02-23">23</td>
+                      <td tabindex="-1" data-date="2020-02-24">24</td>
+                      <td tabindex="-1" data-date="2020-02-25">25</td>
+                      <td tabindex="-1" data-date="2020-02-26">26</td>
+                      <td tabindex="-1" data-date="2020-02-27">27</td>
+                      <td tabindex="-1" data-date="2020-02-28">28</td>
+                      <td tabindex="-1" data-date="2020-02-29">29</td>
+                    </tr>
+                    <tr>
+                      <td tabindex="-1" data-date="2020-02-30">30</td>
+                      <td tabindex="-1" data-date="2020-02-31">31</td>
+                      <td class="disabled" tabindex="-1"></td>
+                      <td class="disabled" tabindex="-1"></td>
+                      <td class="disabled" tabindex="-1"></td>
+                      <td class="disabled" tabindex="-1"></td>
+                      <td class="disabled" tabindex="-1"></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="dialog-ok-cancel-group">
+                  <button class="dialog-button" value="cancel">
+                    Cancel
+                  </button>
+                  <button class="dialog-button" value="ok">
+                    OK
+                  </button>
+                </div>              
+              </div>
+          </div>
+          <!-- calendar_show_end -->
+          <p></p>
+      </div>
+
+
+    </main>
+
+</body>
+
+</html>

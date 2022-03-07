@@ -1,0 +1,92 @@
+const gval = {
+  serverURI: "http://localhost/api/v1/index.php",
+  CompanyInfo: {
+    Date: "23-Jan-2022 10:21",
+  },
+  Templates: [
+    {
+      Name: "Template 1",
+      URI: "../downfiles/Template1.docx",
+    },
+    {
+      Name: "Template 2",
+      URI: "../downfiles/Template2.docx",
+    },
+    {
+      Name: "Template 3",
+      URI: "../downfiles/Template3.docx",
+    },
+  ],
+  GenericTexts: [
+    {
+      Name: "Sample 1",
+      Body: "This is the body of the text that will be inserverd",
+    },
+    {
+      Name: "Sample 2",
+      Body: "This is my best friend",
+    },
+    {
+      Name: "Sample 3",
+      Body: "ok, beautiful girl",
+    },
+  ],
+  ProductList: [
+    {
+      Name: "Product 1",
+      Id: "prod-1",
+    },
+    {
+      Name: "Product 2",
+      Id: "prod-2",
+    },
+    {
+      Name: "Product 3",
+      Id: "prod-3",
+    },
+  ],
+  ProductTexts: [
+    {
+      Id: "prod-1",
+      Name: "Prod 1 text1",
+      StartDate: "23-jan-1978",
+      EndDate: "5-dec-2021",
+      Body: "This is the product 1 specific text for this date range",
+    },
+    {
+      Id: "prod-1",
+      Name: "Prod 1 text2",
+      StartDate: "23-jan-1978",
+      EndDate: "5-feb-2022",
+      Body: "This is the product 1 specific text for this date range",
+    },
+    {
+      Id: "prod-2",
+      Name: "Prod 2 text1",
+      StartDate: "23-jan-1978",
+      EndDate: "5-dec-2021",
+      Body: "This is the product 2 specific text for this date range",
+    },
+    {
+      Id: "prod-2",
+      Name: "Prod 2 text2",
+      StartDate: "23-jan-1978",
+      EndDate: "5-dec-2021",
+      Body: "This is the product 2 specific text for this date range",
+    },
+    {
+      Id: "prod-3",
+      Name: "Prod 3 text1",
+      StartDate: "23-jan-1978",
+      EndDate: "5-dec-2021",
+      Body: "This is the product 3 specific text for this date range",
+    },
+    {
+      Id: "prod-3",
+      Name: "Prod 3 text2",
+      StartDate: "23-jan-1978",
+      EndDate: "5-dec-2021",
+      Body: "This is the product 3 specific text for this date range",
+    },
+  ],
+};

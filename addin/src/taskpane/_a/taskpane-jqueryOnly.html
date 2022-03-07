@@ -1,0 +1,269 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fill Outer</title>
+
+<!-- Office JavaScript API -->
+<!-- <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script> -->
+
+<!-- For more information on Fluent UI, visit https://developer.microsoft.com/fluentui#/. -->
+<!-- <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css"/> -->
+<link href="taskpane.css" rel="stylesheet" type="text/css" />
+<link href="jQueryAssets/jquery.ui.core.min.css" rel="stylesheet" type="text/css">
+<link href="jQueryAssets/jquery.ui.theme.min.css" rel="stylesheet" type="text/css">
+<link href="jQueryAssets/jquery.ui.dialog.min.css" rel="stylesheet" type="text/css">
+<link href="jQueryAssets/jquery.ui.resizable.min.css" rel="stylesheet" type="text/css">
+<link href="jQueryAssets/jquery.ui.button.min.css" rel="stylesheet" type="text/css">
+
+<!-- <link href="datepickerdialog.css" rel="stylesheet" type="text/css" /> -->
+<!-- <script type="text/javascript" src="datepickerdialog.js"></script> -->
+
+<script src="jQueryAssets/jquery-1.11.1.min.js"></script>
+<script src="jQueryAssets/jquery.ui-1.10.4.dialog.min.js"></script>
+<script src="jQueryAssets/jquery.ui-1.10.4.button.min.js"></script>
+<!-- <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script> -->
+<script src="jQueryAssets/jquery-ui-1.13.1/jquery-ui.min.js"></script>
+
+<!-- <script type="text/javascript" src="taskpane.js"></script> -->
+</head>
+
+<body class="ms-font-m ms-welcome ms-Fabric">
+<main id="app-body" class="ms-welcome__main" >
+<div id="div-header">
+  <table width="100%">
+    <tbody>
+      <tr>
+        <td width="10%"><img src="../../assets/menu.png" alt="" class="menu" id="menu"/></td>
+        <td width="70%">
+			<select name="select" title="Select a template" id="select-template">
+			</select>
+		</td>
+        <td width="20%" align="right">
+			<img src="../../assets/plus.png" alt="" id="add-template"/>
+			<img src="../../assets/save.png" alt="" id="save-template"/>
+		</td>
+      </tr>
+    </tbody>
+  </table>
+  
+</div>
+<div id="div-button" align="center">
+  <table width="100%">
+    <tbody>
+      <tr>
+        <td width="10%">&nbsp;</td>
+        <td align="center">
+		  <input type="button" name="button-insert-car" id="button-insert-car" value="+ Car" width="40%">
+		  <input type="button" name="button-insert-motorbike" id="button-insert-motorbike" value="+ Motorbike" width="40%">
+		</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div id="div-main">
+<ul id="sortable">
+  <li class="ui-state-default">
+  <div class="div-section">
+    <table width="100%" class="table-section">
+		<tbody>
+		  <tr class="tr-section-control">
+			<td>
+			  <input name="button3" type="button" class="button-no" value="#1">
+			  <select name="select" class="select">
+			  </select>
+			  <img src="../../assets/plus.png" alt="" class="add-field" />
+			</td>
+			<td width="10%" align="right"><img src="../../assets/close.png" alt="" class="delete-section"/></td>
+		  </tr>
+		  <tr class="tr-section-fields">
+			<td colspan="2"><table width="100%" class="table-fields">
+			  <tbody class="tbody-field">
+				<tr class="tr-field">
+				  <td><table width="100%">
+					<tbody>
+					  <tr>
+						<td width="6%"><img  src="../../assets/arrow-left.png" alt="" class="insert-field-value"/></td>
+						<td><input name="textfield" type="text" class="field-name"></td>
+						<td width="6%" align="right"><img src="../../assets/close.png" alt="" class="delete-field"/></td>
+						</tr>
+					  <tr>
+						<td colspan="3" >
+						  <input name="textfield2" type="text" class="field-value">
+						  </td>
+						</tr>
+					  </tbody>
+					</table></td>
+				</tr>
+				<tr class="tr-field">
+				  <td><table width="100%">
+					<tbody>
+					  <tr>
+						<td width="6%"><img  src="../../assets/arrow-left.png" alt="" class="insert-field-value"/></td>
+						<td><input name="textfield" type="text" class="field-name"></td>
+						<td width="6%" align="right"><img src="../../assets/close.png" alt="" class="delete-field"/></td>
+						</tr>
+					  <tr>
+						<td colspan="3" >
+						  <input name="textfield2" type="text" class="field-value">
+						  </td>
+						</tr>
+					  </tbody>
+					</table></td>
+				</tr>
+			  </tbody>
+			  </table>
+			</td>
+		  </tr>
+		</tbody>
+    </table>
+  </div>
+  </li>
+</ul>	
+</div>
+</main>
+<div id="dialog-save" title="Save the template">
+  <table width="100%">
+    <tbody>
+      <tr>
+        <td><table width="100%">
+          <tbody>
+            <tr>
+              <td><table id="table-saved-dirs" width="100%">
+                <tbody>
+                  <tr>
+                    <td width="10%"><img src="../../assets/folder.png" alt="" class="icon-folder"/></td>
+                    <td>old cars</td>
+                  </tr>
+                  <tr>
+                    <td><img src="../../assets/folder.png" alt="" class="icon-folder"/></td>
+                    <td>new cars</td>
+                  </tr>
+                  <tr>
+                    <td><img src="../../assets/folder.png" alt="" class="icon-folder"/></td>
+                    <td>old motorbikes</td>
+                  </tr>
+                </tbody>
+              </table></td>
+            </tr>
+            <tr>
+              <td><table width="100%" id="table-saved-files">
+                <tbody>
+                  <tr>
+                    <td width="10%">&nbsp;</td>
+                    <td>car-contract.docx</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td>bike-contract.docx</td>
+                  </tr>
+                </tbody>
+              </table></td>
+            </tr>
+          </tbody>
+        </table></td>
+      </tr>
+      <tr>
+        <td><label for="textfield">document name:</label>
+        <input type="text" name="textfield" id="save-doc-name"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div id="dialog-about" title="About">About this add in</div>
+<div id="dialog-setting" title="Settings">
+  <table width="100%" id="table-setting">
+    <tbody>
+      <tr>
+        <td align="center">To connect this add-on with WEBSITE you should copy this TOKEN and insert on WEBSITE:</td>
+      </tr>
+      <tr>
+        <td align="center"><input type="text" name="textfield" id="new-token" readonly></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td align="center">and also copy from WEBSITE that TOKEN and insert into the following field:</td>
+      </tr>
+      <tr>
+        <td align="center" ><input type="text" name="textfield" id="copied-token"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div id="dialog-template" title="Manage Templates">
+  <table width="100%" id="table-manage-template">
+    <tbody>
+      <tr>
+        <td><table width="100%" id="table-dir">
+          <tbody>
+            <tr>
+              <td width="10%"><img src="../../assets/folder.png" alt="" class="icon-folder"/></td>
+              <td>old cars</td>
+              <td width="10%"><img src="../../assets/close.png" alt="" class="dir-delete"/></td>
+            </tr>
+            <tr>
+              <td><img src="../../assets/folder.png" alt="" class="icon-folder"/></td>
+              <td>new cars</td>
+              <td><img src="../../assets/close.png" alt="" class="dir-delete"/></td>
+            </tr>
+            <tr>
+              <td><img src="../../assets/folder.png" alt="" class="icon-folder"/></td>
+              <td>new bikes</td>
+              <td><img src="../../assets/close.png" alt="" class="dir-delete"/></td>
+            </tr>
+          </tbody>
+        </table></td>
+      </tr>
+      <tr>
+        <td><table width="100%" id="table-file">
+          <tbody>
+            <tr>
+              <td width="10%">&nbsp;</td>
+              <td>contact-for-cars.docx</td>
+              <td width="10%"><img src="../../assets/copy.png" alt="" class="copy-doc"/></td>
+              <td width="10%"><img src="../../assets/close.png" alt="" class="file-delete"/></td>
+            </tr>
+            <tr>
+              <td width="10%">&nbsp;</td>
+              <td>contact-for-bikes.docx</td>
+              <td><img src="../../assets/copy.png" alt="" class="copy-doc"/></td>
+              <td><img src="../../assets/close.png" alt="" class="file-delete"/></td>
+            </tr>
+          </tbody>
+        </table></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div id="dialog-menu" title="Menu">
+  <table width="100%">
+    <tbody>
+      <tr>
+        <td><button id="menu-template">Templates</button></td>
+      </tr>
+      <tr>
+        <td><button id="menu-setting">Setting</button></td>
+      </tr>
+      <tr>
+        <td><button id="menu-about">About</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<form>
+          <h1>Publish presentation</h1>
+          <br />
+          <div><input id="submit" type="button" value="Submit" /></div>
+          <br />
+          <div><h2>Status</h2> 
+              <div id="status"></div>
+          </div>
+      </form>
+<script type="text/javascript" src="menu.js"></script>
+
+</body>
+</html>

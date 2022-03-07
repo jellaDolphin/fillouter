@@ -1,0 +1,253 @@
+/* calendar */
+.sr-only {
+    position: absolute;
+    top: -1000em;
+    left: -2000em;
+  }
+  
+  .datepicker {
+    margin-top: 1em;
+    position: relative;
+  }
+  
+  .datepicker .group {
+    white-space:nowrap;
+    display: inline-block;
+    position: relative;
+    width: 6em;
+  }
+  
+  .datepicker label {
+    display: block;
+  }
+  
+  .datepicker input {
+    padding: 0;
+    margin: 0;
+    height: 1.5em;
+    background-color: white;
+    color: black;
+    border: 1px solid gray;
+  }
+  
+  .datepicker button.icon {
+    outline:none;
+    position: relative;
+    /* top: 0.25em; */
+    margin: 0;
+    padding: 2px;
+    border: 0 solid #ffffff;
+    background-color: white;
+    border-radius: 3px;
+  }
+  
+  .datepicker button.icon:focus {
+    outline: none;
+    padding: 2px;
+    border: 0 solid #005a9c;
+    background-color: #def;
+  }
+  
+  .datepicker .desc {
+    position: absolute;
+    left: 0;
+    top: 2em;
+  }
+  
+  .datepicker .fa-calendar-alt {
+    color: #052fe7;
+  }
+  
+  .datepicker input:focus {
+    background-color: #def;
+    outline: 1px solid #005a9c;
+    /* outline-offset: 1px; */
+  }
+  
+  .datepicker-dialog {
+    position: absolute;
+    width: 240px;
+    clear: both;
+    border: 1px solid #052fe7;
+    margin-top: 0.15em;
+    border-radius: 3px;
+    padding: 0;
+    background-color: #fff;
+  }
+  
+  .datepicker-dialog .header {
+    cursor: default;
+    background-color: #052fe7;
+    padding: 3px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .datepicker-dialog h2 {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    font-size: 1em;
+    color: white;
+    text-transform: none;
+    font-weight: bold;
+  }
+  
+  .datepicker-dialog button {
+    border-style: none;
+    /* border: 1px solid white; */
+    background: transparent;
+  }
+  
+  .datepicker-dialog button::-moz-focus-outer {
+    border: 1px;
+  }
+  
+  .datepicker-dialog .dates {
+    width: 240px;
+  }
+  
+  .datepicker-dialog .prev-year,
+  .datepicker-dialog .prev-month,
+  .datepicker-dialog .next-month,
+  .datepicker-dialog .next-year {
+    padding: 2px;
+    width: 20px;
+    height: 20px;
+    color: white;
+  }
+  
+  .datepicker-dialog .prev-year:focus,
+  .datepicker-dialog .prev-month:focus,
+  .datepicker-dialog .next-month:focus,
+  .datepicker-dialog .next-year:focus {
+    padding: 3px;
+    border: 1px solid white;
+    border-radius: 3px;
+    outline: 0;
+  }
+  
+  .datepicker-dialog .prev-year:hover,
+  .datepicker-dialog .prev-month:hover,
+  .datepicker-dialog .next-month:hover,
+  .datepicker-dialog .next-year:hover {
+    padding: 3px;
+    border: 1px solid white;
+    border-radius: 3px;
+  }
+  
+  .datepicker-dialog .dialog-ok-cancel-group {
+    text-align: right;
+    margin-top: 0em;
+    margin-bottom: 1em;
+    margin-right: 1em;
+  }
+  
+  .datepicker-dialog .dialog-ok-cancel-group button {
+    padding: 2px;
+    margin-left: 1em;
+    width: 4em;
+    background-color: #dae7fb;
+    font-size: 0.85em;
+    color: black;
+    outline: none;
+    border-radius: 5px;
+  }
+  
+  .datepicker-dialog .dialog-button:focus {
+    padding: 2px;
+    /* border: 1px solid black; */
+    background-color: #79a5e9;
+  }
+  
+  .datepicker-dialog .dialog-button:hover {
+    padding: 2px;
+    /* border: 1px solid black; */
+    background-color: #669cee;
+  }
+  
+  .datepicker-dialog .fa-calendar-alt {
+    color: #052fe7;
+  }
+  
+  .datepicker-dialog .month-year {
+    display: inline-block;
+    width: 12em;
+    text-align: center;
+  }
+  
+  .datepicker-dialog table.dates {
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 1em;
+  }
+  
+  .datepicker-dialog table.dates th,
+  .datepicker-dialog table.dates td {
+    text-align: center;
+  }
+  
+  .datepicker-dialog table.dates tr {
+    border: 1px solid black;
+  }
+  
+  .datepicker-dialog table.dates td {
+    padding: 2px;
+    margin: 0;
+    line-height: inherit;
+    height: 22px;
+    width: 22px;
+    border-radius: 4px;
+    font-size: 12px;
+    background: #eee;
+  }
+  
+  .datepicker-dialog table.dates td.disabled {
+    padding: 1px;
+    border: none;
+    height: 23px;
+    width: 23px;
+  }
+  
+  .datepicker-dialog table.dates td:focus,
+  .datepicker-dialog table.dates td:hover {
+    padding: 0;
+    background-color: #dae7fb;
+  }
+  
+  .datepicker-dialog table.dates td:focus {
+    padding: 2px;
+    /* border: 2px solid #646464; */
+    outline: 0;
+  }
+  
+  .datepicker-dialog table.dates td:not(.disabled):hover {
+    padding: 2px;
+    /* border: 2px solid #646464; */
+  }
+  
+  .datepicker-dialog table.dates td[aria-selected] {
+    padding: 2px;
+    /* border: 2px dotted #646464; */
+  }
+  
+  .datepicker-dialog table.dates td[aria-selected]:focus {
+    padding: 2px;
+    /* border: 2px solid #646464; */
+  }
+  
+  .datepicker-dialog table.dates td[tabindex="0"] {
+    background-color: #052fe7;
+    color: white;
+  }
+  
+  .datepicker-dialog .dialog-message {
+    padding-top: 0.25em;
+    padding-left: 1em;
+    height: 1.75em;
+    background: #052fe7;
+    color: white;
+  }
