@@ -80,12 +80,12 @@ $(function () {
           gval.serverURI + req + g_token,
           {},
           function (data) {
-            // updateStatus("newfolder result:" + JSON.stringify(data));
+
             if (data["status"] == "success") {
 
               clearTimeout(myVar);
-              // if (type == "file")
               var max_id;
+
               for (var id in g_dir_names) {
                 if (max_id < id) max_id = id;
               }
@@ -94,14 +94,11 @@ $(function () {
               insertFileItem_js("dir", max_id, name, "close");
               insertFileItem_js("dir", max_id, name, "");
               // add option
-              // if (g_current_dir_option != "") $("#select-template").append(option);
-              // updateStatus("newfolder create:-------" + g_current_dir_option);
               if (g_current_dir_option == "") {
-                //$("#select-template option:first").insertAfter(new Option("[" + name + "]"));
+
                 $("#select-template option").eq(1).before($("<option>[" + name + "]</option>"));
               }
             }
-            // updateStatus(" delete file g_template_id, id " + g_template_id + " " + id);
           },
           "json"
         );
@@ -111,6 +108,7 @@ $(function () {
       },
     },
   });
+
   $("#dialog-template").dialog({
     autoOpen: false,
     modal: true,
@@ -141,25 +139,19 @@ $(function () {
     buttons: {
       Save: function () {
         var car_name = $("#input-new-car-name").val();
-        // console.log($("#input-new-car-name"));
         $(this).dialog("close");
-        // updateStatus("dialog carname:", car_name);
 
         var t;
         if (g_cc_type == 1) t = "c";
         else t = "b";
 
         for (var i in currentObject["fields"]) {
-          // console.log("car name t, cars_or_bikes:\n", t, currentObject["fields"][i]["cars_or_bikes"]);
           if (currentObject["fields"][i]["cars_or_bikes"] == t) {
-            // console.log("car name current:", currentObject["fields"][i]);
             delete currentObject["fields"][i];
           }
         }
 
-        // g_is_new = true;
         insertSection_js(g_cc_type);
-        // g_is_new = false;
         // max_car_id++;
         carOptions += '<option value="' + max_car_id + '">' + car_name + "</option>";
         document.getElementById("select-car").innerHTML = carOptions;
@@ -167,8 +159,6 @@ $(function () {
         currentObject["cars"][max_car_id]["title"] = car_name; // get title
         currentObject["cars"][max_car_id]["status"] = "add";
         $(".select").val(max_car_id);
-
-        // console.log("car name currentObject:\n", currentObject);
       },
       Cancel: function () {
         $(this).dialog("close");
@@ -201,7 +191,6 @@ $(function () {
         } else {
           full_name = doc_name;
         }
-        // updateStatus("overwrite---------1------" + full_name);
         currentObject["fname"] = full_name;
         if (currentObject["status"] == "add" || currentObject["status"] == "")
           currentObject["status"] = "replace";
@@ -259,7 +248,6 @@ $(function () {
               if (returnData["status"] == "success") {
                 // updateStatus(" ::token SUCCESS!!! ");
                 g_server_token = returnData["plugin_token"];
-                // $("#copied_token").val(g_server_token);
                 g_connected = true;
                 alarm("Connected to API", "");
                 $("#div-alarm").css("color", "green");
@@ -298,8 +286,6 @@ $(function () {
             },
             "json"
           );
-          // server_token = $("#copied_token").val();
-          // server_token = server_token.replace(/ /g, "");
         },
       },
       {
@@ -344,9 +330,7 @@ $(function () {
           }
         }
 
-        // updateStatus("dialog_save --- fname: " + full_name);
         if (is_duplicate == true) {
-          // updateStatus("dialog_save --- is_duplicate: " + is_duplicate);
           $("#dialog-overwrite").dialog("open");
         } else {
           currentObject["fname"] = full_name;
@@ -432,10 +416,8 @@ $(function () {
   });
 
   $("#add-template").click(function () {
-    // console.log("add template");
     if (currentObject["status"] == "update") {
       $("#dialog-save-confirm").dialog("open");
-      // sendFile();
     } else {
       g_new_template = 1;
       currentObject["status"] = "add";
@@ -449,7 +431,6 @@ $(function () {
   $(document).on("click", ".file-delete", function () {
     var row = $(this).parent().parent("tr");
     var id = $(this).attr("id");
-    // updateStatus("delete file id: " + id);
     var type = id.split("-")[1];
     id = id.split("-")[2];
     var name = "";
@@ -462,35 +443,35 @@ $(function () {
         .children(".dir-name")
         .map(function () {
           name = $(this).html();
-          // updateStatus("delete file----------: " + type + " " + id + " " + name);
         });
       req = "?delete_dir=" + name;
     } else {
       name = g_template_names[id];
       req = "?delete_file=" + name;
     }
-    // updateStatus("delete file-------name: " + id + " " + name);
-    var myVar;
-          myVar = setTimeout(function(){
-            g_server_token="";g_token = "";
-            $("#table-setting-success").css("display","none");
-                $("#table-setting").css("display","block");
 
-                $("#btnConnect").html("Connect");
-                $("#btnConnect").css('width', '120px');
-                $("#btnConnect").css('height', '40px');
-              alarm("Can't connect to Server", "");
-              $("#div-alarm").css("color", "red");
-          }, 2000);
+    var myVar;
+    myVar = setTimeout(function(){
+      g_server_token="";g_token = "";
+      $("#table-setting-success").css("display","none");
+          $("#table-setting").css("display","block");
+
+          $("#btnConnect").html("Connect");
+          $("#btnConnect").css('width', '120px');
+          $("#btnConnect").css('height', '40px');
+        alarm("Can't connect to Server", "");
+        $("#div-alarm").css("color", "red");
+    }, 2000);
+
     $.get(
       gval.serverURI + req + g_token,
       {},
       function (data) {
         if (data["status"] == "success") {
           clearTimeout(myVar);
-          // if (type == "file")
+
           row.remove();
-          // updateStatus("file delete--------name: " + type + " " + id + " " + name);
+
           if (type == "file") {
             for (var i in g_template_names) {
               if (name == g_template_names[i]) {
@@ -507,7 +488,6 @@ $(function () {
             }
 
             $("#select-template option").map(function () {
-              // updateStatus("delete file----option: " + $(this).val() + $(this).html());
               if (
                 $(this)
                   .html()
@@ -523,12 +503,10 @@ $(function () {
           } else {
             $("#tbody-saved-dirs > #tr-dir-" + id).remove();
           }
-          // updateStatus(" delete file g_template_id, id " + g_template_id + " " + id);
+
           if (g_template_id == id) {
             $("#select-template option").last().prop("selected", true);
             changeTemplate_js();
-            // updateStatus(" delete file SUCCESS!!! ");
-            // $("#select-template option").val(val).trigger("change");
           }
         }
       },
@@ -540,13 +518,9 @@ $(function () {
   $(document).on("click", ".copy-doc", function () {
     var row = $(this).parent().parent("tr");
     var id = $(this).attr("id");
-    // updateStatus("delete file---- id: " + id);
     id = id.split("-")[2];
     var name = "";
     var req = "?";
-
-    // updateStatus("delete file: " + id + " " + name);
-    // name = $(this).html();
 
     $(this)
       .parent()
@@ -554,13 +528,9 @@ $(function () {
       .children(".file-name")
       .map(function () {
         name = $(this).html();
-        // updateStatus("delete file----------: " + type + " " + id + " " + name);
       });
 
-    // if (type == "dir") req = "?delete_dir=" + name;
-    // else
     req = "?copy_file=" + id;
-    // updateStatus("copy file----------req: " + req);
     var myVar;
           myVar = setTimeout(function(){
             g_server_token="";g_token = "";
@@ -577,7 +547,7 @@ $(function () {
       gval.serverURI + req + g_token,
       {},
       function (data) {
-        //updateStatus("copy file---data: " + JSON.stringify(data));
+
         if (data["status"] == "success") {
           clearTimeout(myVar);
           var new_id = data["id"];
@@ -585,11 +555,7 @@ $(function () {
           var dir_name = "";
           var max_dir_id = 0;
           
-          // updateStatus("copy file---1---: " + g_template_names.length);
-          // updateStatus("copy file---2---: " + new_id);
           g_template_names[new_id] = new_name;
-          // updateStatus("copy file---3---: " + g_template_names.length);
-          // updateStatus("copy file---4---: " + g_template_names[new_id]);
 
           var arr = new_name.split("/");
           if (arr.length > 1) {
@@ -597,15 +563,12 @@ $(function () {
             new_name = arr[1];
           }
 
-          // updateStatus("copy doc ---- " + g_current_dir_option + " " + dir_name);
           if (g_current_dir_option == dir_name) {
             $("#select-template").append(new Option(new_name, new_id));
           }
 
           insertFileItem_js("file", new_id, new_name, "close");
           insertFileItem_js("file", new_id, new_name, "");
-
-          // $("#select-template option[value=" + id + "]").remove();
         }
       },
       "json"
@@ -614,14 +577,11 @@ $(function () {
   });
 
   $(document).on("click", ".dir-name", function () {
-    // updateStatus("dir-name ---0----");
     $("#btnNewFolder").attr("disabled", true);
     var name = "";
     var fname = "";
-    // updateStatus("dir-name ---1----");
     name = $(this).html();
     g_current_dir = name;
-    // updateStatus("dir-name : " + name);
 
     $("#tbody-saved-dirs tr.tr-up").css("display", "block");
     $("#tbody-template-dir tr.tr-up").css("display", "block");
@@ -631,10 +591,9 @@ $(function () {
     $("#tbody-saved-dirs tr.tr-file").remove();
     $("#tbody-saved-files tr.tr-file").remove();
     $("#tbody-saved-files tr.tr-file").remove();
-    // updateStatus("dir-name ---2----");
+
     for (var id in g_template_names) {
       var t_name = g_template_names[id];
-      // updateStatus("delete file------t-name: " + t_name);
       if (t_name.startsWith(name + "/")) {
         fname = t_name.split("/")[1];
         insertFileItem_js("file", id, fname, "close");
@@ -661,18 +620,13 @@ $(function () {
         $(this).css("display", "none");
         $(this).find(".field-value").val("");
         $(this).find(".field-value").remove();
-        // $(this).remove();
       });
 
     var id = $(this).attr("id");
     var car_type = id.split("-")[1];
     var type = g_type_atoi[car_type];
-    // console.log("delete-section g_type_atoi:", g_type_atoi);
-    // // console.log("delete-section car_type:", car_type);
-    // console.log("delete-section type:", type);
 
     car_type = car_type[0];
-    // updateStatus("delete-section car_type:" + car_type);
 
     for (field_id in currentObject["fields"]) {
       if (currentObject["fields"][field_id]["cars_or_bikes"] == car_type) {
@@ -693,8 +647,6 @@ $(function () {
     }
     // g_is_new = false;
     template_status = "update";
-    // updateStatus("delete-section currentObject :\n" + JSON.stringify(currentObject));
-    // updateStatus("\n\n");
     return false;
   });
 
@@ -702,7 +654,6 @@ $(function () {
   $(document).on("click", ".insert-field-value", function () {
     field_value = $(this).parents(".tr-field").find(".field-name").val();
     insertFieldValue(field_value);
-    // console.log("insert field value currentObject:\n", currentObject);
   });
 
   $(document).on("click", ".delete-field", function () {
@@ -732,7 +683,7 @@ $(function () {
       currentObject["status"] = "update";
     }
     template_status = "update";
-    // console.log("deleted-field  currentObject:\n ", currentObject);
+
     return false;
   });
 
@@ -757,8 +708,6 @@ $(function () {
     if (currentObject["status"] != "add") {
       currentObject["status"] = "update";
     }
-
-    // console.log("add-field  currentObject:\n ", currentObject);
     return true;
   });
 
@@ -787,12 +736,10 @@ $(function () {
               return false;
             }
             name_id = name_ar[2];
-            // updateStatus("chang fieldvalue---ids :" + value_id + " " + name_id);
             if (value_id != name_id) return;
             var origin = $(this).val();
             var pattern = /[a-zA-Z]+[a-zA-Z_]+/g;
             var field_name = origin.match(pattern);
-            // updateStatus("chang fieldvalue---field_name:" + field_name);
 
             for (var id in g_default_fields) {
               if (field_name == g_default_fields[id]["fields"]) {
@@ -805,14 +752,11 @@ $(function () {
             }
           });
       });
-    // updateStatus("change fieldvalue---default_name:" + default_name);
 
     $(this)
       .parents(".table-section")
       .map(function () {
         var car_id = $(this).find(".select").val();
-        // updateStatus("change fieldvalue---car_id:\n    " + car_id + default_name + changed_value);
-        // console.log("------- car_id:", car_id);
         currentObject["cars"][car_id][default_name] = changed_value;
         if (currentObject["cars"][car_id]["status"] != "add") {
           currentObject["cars"][car_id]["status"] = "update";
@@ -822,8 +766,7 @@ $(function () {
     if (currentObject["status"] != "add") {
       currentObject["status"] = "update";
     }
-    // updateStatus("change fieldvalue---curObj(cars):" + JSON.stringify(currentObject["cars"]));
-    // console.log("change field value : ", currentObject);
+
     return true;
   });
 
@@ -841,17 +784,13 @@ $(function () {
     var field_id = ar[2];
     var pattern = /[a-zA-Z]+[a-zA-Z_]+/g;
     var field_name = orign.match(pattern);
-    // updateStatus("focusout.field-name : " + field_name);
+
     for (var i in g_default_fields) {
       if (field_name == g_default_fields[i]["fields"]) {
         return false;
       }
     }
 
-    // if (field_id in currentObject["fields"] && !(field_id in g_default_fields)) {
-    // } else {
-    //   return false;
-    // }
     field_name = field_name[0];
     if (ar[3] == "car") field_view_name = "[#1_" + field_name + "]";
     else field_view_name = "[#2_" + field_name + "]";
@@ -868,8 +807,6 @@ $(function () {
     if (currentObject["status"] != "add") {
       currentObject["status"] = "update";
     }
-    // console.log("focusout field-name :\n ", currentObject);
-    // console.log("focusout field_name currentObject:\n", currentObject);
     return true;
   });
 
@@ -877,8 +814,7 @@ $(function () {
     var id = $(this).attr("id");
     var origin = $(this).val();
     var ar = id.split("-");
-    // var field_id = ar[2];
-    // updateStatus("focus.field-name ar: " + ar);
+
     if (ar.length < 4) {
       $("#dialog-alert").dialog("open");
       return false;
@@ -886,7 +822,6 @@ $(function () {
 
     var pattern = /[a-zA-Z]+[a-zA-Z_]+/g;
     var field_name = origin.match(pattern);
-    // updateStatus("focus.field-name : " + field_name);
     for (var i in g_default_fields) {
       if (field_name == g_default_fields[i]["fields"]) {
         return false;
@@ -894,25 +829,15 @@ $(function () {
     }
     $(this).val(field_name);
 
-    // if (field_id in currentObject["fields"] && !(field_id in g_default_fields)) {
-    //   field_name = currentObject["fields"][field_id]["fields"];
-    // } else {
-    //   return false;
-    // }
     return true;
   });
 
   $(document).on("change", ".select", function () {
     var id = $(this).attr("id");
-    // console.log("id:", id);
     g_car_id = $(this).val();
-    // console.log("g_car_id", g_car_id);
     var ar = id.split("-");
-    // // console.log("change select id: ", ar);
     var select_dom = $(this);
     var default_name = "";
-    // updateStatus("change.select g_default_fields: " + g_default_fields);
-    // updateStatus("change.select g_car_id: " + g_car_id);
     var myVar;
           myVar = setTimeout(function(){
             g_server_token="";g_token = "";
@@ -940,11 +865,6 @@ $(function () {
 
         currentObject["cars"][g_car_id] = {};
         currentObject["cars"][g_car_id] = jsonObject;
-        // console.log("change select jsonObjec:\n", jsonObject);
-        // console.log("change select g_default_fields:\n", g_default_fields);
-        // updateStatus("change.select ----jsonObject : " + JSON.stringify(jsonObject));
-        // get field name;
-        var father;
         var sel_id;
         $(select_dom)
           .parents(".div-section")
@@ -953,49 +873,35 @@ $(function () {
             $(this)
               .find(".field-name")
               .map(function () {
-                // father = $(this).parent()[0];
-                // console.log("\n change select id:\n", $(this).attr("id"));
                 ar = $(this).attr("id").split("-");
-                // updateStatus("change.select ----name_id : " + $(this).attr("id"));
                 sel_id = ar[2];
 
                 var origin = $(this).val();
                 var pattern = /[a-zA-Z]+[a-zA-Z_]+/g;
                 var field_name = origin.match(pattern);
-                // updateStatus("change.select ----field_name : " + field_name);
                 default_name = "";
                 for (var i in g_default_fields) {
                   if (field_name == g_default_fields[i]["fields"]) {
                     default_name = field_name;
-                    // updateStatus("change.select ----default_name : " + g_default_fields[i]["fields"]);
                     break;
                   }
                 }
                 if (default_name == "") {
                   return false;
                 }
-                // updateStatus("change.select ------field_name--- : " + field_name);
-                // updateStatus("change.select ------father--- : " + father);
 
                 father.find(".field-value").map(function () {
                   var val_id = $(this).attr("id");
-                  // updateStatus("change.select ------val_id : " + val_id);
                   val_id = $(this).attr("id").split("-")[2];
                   if (sel_id == val_id) {
                     $(this).val(jsonObject[default_name]);
-                    // updateStatus("change.select ----setvalue : " + $(this).val());
                   }
-                  // updateStatus("change.select ------father--- : " + father.attr("id"));
-                  // if ($(this).parent() == father)
                 });
               });
           });
-        // updateStatus("\n\n\n");
-        // console.log("change select currentObject:\n", currentObject);
       },
       "json"
     );
-
     // updateStatus(" init car detail SUCCESS!!! ");
   });
 
@@ -1010,7 +916,6 @@ $(function () {
       // g_cc_type = 2;
       // $("#dialog-car-name").dialog("open");
     }
-    // console.log("button-insert-motorbike currentObject:\n", currentObject);
   });
 
   $("#button-insert-car").click(function () {
@@ -1023,7 +928,6 @@ $(function () {
       // g_cc_type = 1;
       // $("#dialog-car-name").dialog("open");
     }
-    // console.log("button-insert-car currentObject:\n", currentObject);
   });
 
   $("#button-fillout").click(function () {
@@ -1032,16 +936,9 @@ $(function () {
       var value = $(this).find(".field-value").val();
       replaceWordText(key, value);
     });
-    // $(function () {
-    // });
   });
 
   $("#button-reset").click(function () {
-    // $(function () {
-    //   $(".field-value").map(function () {
-    //     $(this).val("");
-    //   });
-    // });
     insertTemplates();
   });
 
@@ -1052,7 +949,6 @@ $(function () {
     } else if (currentObject["status"] == "update") {
       event.stopPropagation();
       $("#dialog-save-confirm").dialog("open");
-      // sendFile();
     }
     return true;
   });
@@ -1126,7 +1022,7 @@ function insertSection_js(type) {
   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   var dateTime = date + " " + time;
   max_car_id++;
-  // console.log("insertSection_js -------- g_is_new:\n", g_is_new);
+
   if (!g_is_new) {
     currentObject["cars"][max_car_id] = {};
     currentObject["cars"][max_car_id]["id"] = -1;
@@ -1144,11 +1040,9 @@ function insertSection_js(type) {
   for (var id in g_default_fields) {
     if (g_default_fields[id]["cars_or_bikes"] == "c" && type != 1) continue;
     else if (g_default_fields[id]["cars_or_bikes"] == "b" && type != 2) continue;
-    // console.log("g_default_fields's type:", g_default_fields[id]["cars_or_bikes"]);
 
     max_field_id++;
     var fd_name = g_default_fields[id]["fields"];
-    // updateStatus("insertSection----type, id, fd_name: " + type + " " + id + " " + fd_name);
     insertField_js(type, id, fd_name, 1);
     currentObject["fields"][max_field_id] = {};
     currentObject["fields"][max_field_id]["id"] = -1;
@@ -1211,7 +1105,7 @@ function insertFileItem_js(type, id, name, readonly) {
 }
 
 function initFileList_js() {
-  // console.log("insertSection_js -------- g_is_new:\n", g_is_new);
+
   $("#tbody-template-dir tr.tr-file").remove();
   $("#tbody-template-file tr.tr-file").remove();
   $("#tbody-saved-dirs tr.tr-file").remove();
@@ -1228,8 +1122,6 @@ function initFileList_js() {
       insertFileItem_js("file", id, g_template_names[id], "");
     }
   }
-
-  // jsonObject["dirs"] = {1:"aaa",2:"bbb",3:"ccc"};
 }
 
 function updateStatus(message, act = "add") {
@@ -1269,18 +1161,13 @@ function initTemplate_js() {
         return;
       jsonObject = {};
       jsonObject = data;
-      // console.log("initTemplate jsonObject:\n", jsonObject);
       g_default_fields = jsonObject["fields"];
-      // updateStatus("--------g_default_fields:" + JSON.stringify(g_default_fields));
-
       templateOptions = "<option value=''>Select a template</option>";
-      // updateStatus( JSON.stringify(jsonObject["templates"]) );
       g_dir_names = jsonObject["dirs"];
 
       for (var id in g_dir_names) {
         templateOptions += "<option>[" + g_dir_names[id] + "]</option>";
       }
-      // updateStatus("initTemplate------\n" + JSON.stringify(jsonObject));
       var i;
       for (var ii in jsonObject["templates"]) {
         i = jsonObject["templates"][ii]["id"];
@@ -1294,7 +1181,6 @@ function initTemplate_js() {
             templateOptions + '<option value="' + i + '">' + jsonObject["templates"][ii]["file_name"] + "</option>";
         }
       }
-      // updateStatus("initTemplate_js array: " + g_template_names);
 
       g_template_id = 0;
       document.getElementById("select-template").innerHTML = templateOptions;
@@ -1315,7 +1201,6 @@ function initTemplate_js() {
       currentObject["fields"] = {};
 
       initFileList_js();
-      // console.log("initTemplate g_default_fields:\n", g_default_fields);
       // updateStatus(" init template SUCCESS!!! ");
     },
     "json"
@@ -1344,17 +1229,13 @@ function initCars_js() {
     function (data) {
 
       clearTimeout(myVar);
-      // var data = '{"1":"Peters car","2":"Vals car","3":"Johns car"}';
       jsonObject = {};
       jsonObject = data; // JSON.parse(data);
-      // // console.log("cars:", jsonObject);
 
       carOptions = "<option value=''>Select a car</option>";
       for (var i in jsonObject) {
-        // console.log("car id:", i);
         carOptions = carOptions + '<option value="' + i + '">' + jsonObject[i] + "</option>";
         if (max_car_id < eval(i)) max_car_id = eval(i);
-        // console.log("max_car_id:\n", max_car_id);
       }
 
       g_template_id = 0;
@@ -1396,15 +1277,13 @@ function changeTemplate_js(event) {
   var pattern = /[a-zA-Z_\s]+/g;
   var origin = e.value;
   var dir_name = origin.match(pattern);
-  // updateStatus("changeTemplate--------1111111111----" + dir_name);
 
   if (origin.endsWith(".docx") < 0) g_current_dir_option = dir_name;
   else g_current_dir_option = "";
-  // updateStatus("------\n" + JSON.stringify(g_template_names));
+
   if (e.value.startsWith("[") == true) {
     templateOptions = "<option>../[" + dir_name + "]</option>";
     for (var i in g_template_names) {
-      // updateStatus("changeTemplate-----222222222-------" + g_template_names[i] + " " + g_template_names[i].startsWith(dir_name + "/"));
       if (g_template_names[i].startsWith(dir_name + "/") && g_template_names[i].split("/")[1]) {
         templateOptions += '<option value="' + i + '">' + g_template_names[i].split("/")[1] + "</option>";
       }
@@ -1412,10 +1291,8 @@ function changeTemplate_js(event) {
     event.stopPropagation();
     document.getElementById("select-template").innerHTML = templateOptions;
   } else if (e.value.startsWith("..") == true) {
-    // updateStatus("changeTemplate-----3333333333-------");
     g_current_dir_option = "";
     event.stopPropagation();
-    // updateStatus("changeTemplate------------");
     initTemplate_js();
   }
 
@@ -1423,8 +1300,6 @@ function changeTemplate_js(event) {
   g_fname = e.options[e.selectedIndex].text;
   $("#save-doc-name").val(g_fname);
   g_new_template = 0;
-
-  // console.log("g_fname:", g_fname);
 
   currentObject["id"] = g_template_id;
   currentObject["fname"] = g_fname;
@@ -1501,7 +1376,6 @@ function changeTemplate_js(event) {
   );
 }
 
-
 function generate_token(length) {
   //edit the token allowed characters
   var a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split("");
@@ -1556,15 +1430,8 @@ Office.onReady((info) => {
   }
 });
 
-//OK good down file to base64
-// $.post( gval.serverURI, {fpath:"template2.docx"}, function( data ) {
-//   // updateStatus("RECVDATA initSet success !!!!");
-//   context.document.body.insertFileFromBase64(data.replace(/^.+,/, ""), Word.InsertLocation.replace);
-// });
-
 function sendFile() {
   // updateStatus("send File called");
-  // // console.log("sendFile currentObject:\n", currentObject);
   Office.context.document.getFileAsync("compressed", { sliceSize: 100000 }, function (result) {
     if (result.status == Office.AsyncResultStatus.Succeeded) {
       // Get the File object from the result.
@@ -1605,8 +1472,6 @@ function sendSlice(slice, state) {
     currentObject["date"] = dateTime;
     currentObject["buf"] = "";
     // updateStatus("\n----Sending file-->");
-    // updateStatus("send:");
-    //updateStatus(JSON.stringify(currentObject));
 
     var myVar;
           myVar = setTimeout(function(){
@@ -1627,14 +1492,12 @@ function sendSlice(slice, state) {
       { template_save: JSON.stringify(currentObject), stoken: g_client_token, ptoken: g_server_token },
       function (returnData) {
         clearTimeout(myVar);
-        //updateStatus(JSON.stringify(currentObject));
         if (returnData["status"] == "success") {
           currentObject["status"] = "";
           initTemplate_js();
           initCars_js();
           initUI();
         } else {
-          // updateStatus(" ::error : " + returnData["buf"]);
         }
       },
       "json"
@@ -1644,18 +1507,14 @@ function sendSlice(slice, state) {
 
 function closeFile(state) {
   state.file.closeAsync(function (result) {
-    // eslint-disable-next-line no-empty
     if (result.status == "succeeded") {
     } else {
-      // updateStatus("File couldn't be closed.");
     }
   });
 }
 
 function insertTemplates() {
   Word.run(function (context) {
-    // changeTemplate_js();
-    // document.getElementById("invisible").style.visibility = "visible";
 
     context.document.body.insertFileFromBase64(currentObject["buf"], Word.InsertLocation.replace);
     return context.sync();
@@ -1664,17 +1523,13 @@ function insertTemplates() {
 
 function insertFieldValue(value) {
   Word.run(function (context) {
-    // console.log("addField clicked.");
     var currentSelection = context.document.getSelection();
     currentSelection.clear();
     currentSelection.insertText(" " + value, Word.InsertLocation.start);
 
     return context.sync();
   }).catch(function (error) {
-    // eslint-disable-next-line no-undef
-    // console.log("Error: " + error);
     if (error instanceof OfficeExtension.Error) {
-      // console.log("Debug info: " + JSON.stringify(error.debugInfo));
     }
   });
 }
